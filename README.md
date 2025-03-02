@@ -1,5 +1,10 @@
 Following Look Ahead bias & Data Snooping bias 
 
+![backtest_comparison](https://github.com/user-attachments/assets/0d0cd9eb-de11-4c1b-9c30-dd6601610e7f)
+![in_sample_trade_results](https://github.com/user-attachments/assets/1065efce-5927-47ba-9cb1-5447086cb46e)
+![out_of_sample_trade_results](https://github.com/user-attachments/assets/e387a38c-c565-4d74-ac00-6066d09dc5ff)
+
+
 Enhancement Ideas
 Advanced Market Analysis
 
