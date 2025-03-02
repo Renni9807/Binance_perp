@@ -1,3 +1,30 @@
+Following Look Ahead bias & Data Snooping bias 
+
+Enhancement Ideas
+Advanced Market Analysis
+
+Multi-timeframe analysis to strengthen signal validation
+Volume profile analysis to identify key price levels
+Market regime detection (trending vs. ranging)
+Volatility filtering to adapt to changing market conditions
+
+Performance Optimization
+
+Dynamic position sizing based on volatility and conviction
+Adaptive parameter optimization based on market conditions
+Machine learning models for pattern recognition and prediction
+Integration with market sentiment analysis from external sources
+
+Risk Management Enhancements
+
+Dynamic stop-loss placement based on recent volatility
+Trailing stop mechanisms to protect profits
+Time-based exit strategies for trades without clear direction
+Portfolio-level risk constraints and correlation analysis
+
+/Users/woosangwon/Desktop/Binance_perp/results/backtest_comparison.png
+/Users/woosangwon/Desktop/Binance_perp/results/in_sample_trade_results.png
+/Users/woosangwon/Desktop/Binance_perp/results/out_of_sample_trade_results.png
 venv) woosangwon@Woos-MacBook-Air Binance_perp % python backtest.py
 
 Running In-Sample Backtest:
