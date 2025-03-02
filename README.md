@@ -1,4 +1,4 @@
-Following rigorous methodologies to avoid Look Ahead bias & Data Snooping bias 
+### Following rigorous methodologies to avoid Look Ahead bias & Data Snooping bias 
 (based on principles from "Algorithmic Trading: Winning Strategies and Their Rationale" by Dr. Ernest P. Chan)
 
 ![backtest_comparison](https://github.com/user-attachments/assets/0d0cd9eb-de11-4c1b-9c30-dd6601610e7f)
