@@ -381,14 +381,20 @@ def main():
     in_sample_file = f"{SYMBOL}_{TIMEFRAME}_{IN_SAMPLE_START.strftime('%Y%m%d')}_{IN_SAMPLE_END.strftime('%Y%m%d')}_UTC_in_sample.csv"
     in_sample_stats = backtester.run_backtest(in_sample_file)
     
+    # 인샘플 결과 저장
+    in_sample_backtester = backtester
+    
     # 아웃샘플 테스트를 위한 초기화
-    backtester.reset()
+    backtester = Backtester(initial_balance=10000)
     
     # 아웃샘플 백테스트 실행
     print("\nRunning Out-of-Sample Backtest:")
     print("==============================")
     out_sample_file = f"{SYMBOL}_{TIMEFRAME}_{OUT_OF_SAMPLE_START.strftime('%Y%m%d')}_{OUT_OF_SAMPLE_END.strftime('%Y%m%d')}_UTC_out_of_sample.csv"
     out_sample_stats = backtester.run_backtest(out_sample_file)
+    
+    # 아웃샘플 결과 저장
+    out_sample_backtester = backtester
     
     # 결과 비교 출력
     print("\nBacktest Results Comparison:")
@@ -428,6 +434,14 @@ def main():
     
     results.to_csv('backtest_comparison.csv', index=False)
     print("\nDetailed comparison saved to 'backtest_comparison.csv'")
-
+    
+    # 시각화 모듈 사용
+    try:
+        from visualizer import visualize_all_results
+        visualize_all_results(in_sample_backtester, out_sample_backtester)
+        print("\nVisualization completed. Check the 'results' directory for images.")
+    except ImportError:
+        print("\nVisualization module not found. Save the visualizer.py file and try again.")
+        
 if __name__ == "__main__":
     main()
