@@ -5,148 +5,120 @@ Following Look Ahead bias & Data Snooping bias
 ![out_of_sample_trade_results](https://github.com/user-attachments/assets/e387a38c-c565-4d74-ac00-6066d09dc5ff)
 
 
-Enhancement Ideas
-Advanced Market Analysis
+# Backtest Visualization Module
 
-Multi-timeframe analysis to strengthen signal validation
-Volume profile analysis to identify key price levels
-Market regime detection (trending vs. ranging)
-Volatility filtering to adapt to changing market conditions
+This module provides various functions for visualizing backtest results.
 
-Performance Optimization
+## Installation
 
-Dynamic position sizing based on volatility and conviction
-Adaptive parameter optimization based on market conditions
-Machine learning models for pattern recognition and prediction
-Integration with market sentiment analysis from external sources
+1. Save the `visualizer.py` file in the same directory as your backtest code.
+2. Update the `main` function in your `backtest.py` file with the provided code, or add only the necessary sections.
 
-Risk Management Enhancements
+## Key Features
 
-Dynamic stop-loss placement based on recent volatility
-Trailing stop mechanisms to protect profits
-Time-based exit strategies for trades without clear direction
-Portfolio-level risk constraints and correlation analysis
+### 1. Equity Curve Visualization
+```python
+visualize_equity_curve(backtester, title="Equity Curve", save_path=None)
+```
+- Displays a graph showing account balance changes during the backtest period.
+- Saves the image file if `save_path` is set.
 
-/Users/woosangwon/Desktop/Binance_perp/results/backtest_comparison.png
-/Users/woosangwon/Desktop/Binance_perp/results/in_sample_trade_results.png
-/Users/woosangwon/Desktop/Binance_perp/results/out_of_sample_trade_results.png
-venv) woosangwon@Woos-MacBook-Air Binance_perp % python backtest.py
+### 2. Trade Results Visualization
+```python
+visualize_trade_results(backtester, title="Trade Results", save_path=None)
+```
+- Displays cumulative profits and individual trade profits/losses as a graph.
+- Profitable trades are shown in green, losses in red.
 
-Running In-Sample Backtest:
-==========================
-Starting backtest on BTCUSDT_5m_20250101_20250201_UTC_in_sample.csv...
-Loading data from BTCUSDT_5m_20250101_20250201_UTC_in_sample.csv
-Processing 8928 candles...
-Processed 0 candles...
-Processed 1000 candles...
-Processed 2000 candles...
-Processed 3000 candles...
-Processed 4000 candles...
-Processed 5000 candles...
-Processed 6000 candles...
-Processed 7000 candles...
-Processed 8000 candles...
+### 3. Trade Pattern Analysis
+```python
+visualize_trade_patterns(backtester, title="Trade Patterns Analysis", save_path=None)
+```
+- Analyzes and displays average profit and win rate by pattern.
+- Helps identify which patterns are most effective.
 
-Backtest completed.
+### 4. Backtest Results Comparison
+```python
+compare_backtest_results(in_sample_stats, out_sample_stats, metrics=None, title="Backtest Results Comparison", save_path=None)
+```
+- Creates bar graphs comparing in-sample and out-of-sample results side by side.
+- Allows selecting which metrics to compare with the `metrics` parameter.
 
-Running Out-of-Sample Backtest:
-==============================
-Starting backtest on BTCUSDT_5m_20250201_20250223_UTC_out_of_sample.csv...
-Loading data from BTCUSDT_5m_20250201_20250223_UTC_out_of_sample.csv
-Processing 6336 candles...
-Processed 0 candles...
-Processed 1000 candles...
-Processed 2000 candles...
-Processed 3000 candles...
-Processed 4000 candles...
-Processed 5000 candles...
-Processed 6000 candles...
+### 5. Complete Results Visualization
+```python
+visualize_all_results(backtester1, backtester2=None, period1_name="In-Sample", period2_name="Out-of-Sample", output_dir="./results")
+```
+- Runs all visualizations at once and saves the results.
+- Includes comparative analysis for comprehensive results.
 
-Backtest completed.
+## Current System Implementation
 
-Backtest Results Comparison:
-===========================
+### Stop Loss Mechanism
+The current system implements a fixed-percentage stop loss strategy:
 
-Performance Metrics:
-Total Return         | In-Sample: -2.02 | Out-of-Sample: 7.32
-Annualized Return    | In-Sample: -4.64 | Out-of-Sample: 300.85
-Annualized Volatility | In-Sample: 81.58 | Out-of-Sample: 64.74
-Sharpe Ratio         | In-Sample: -0.08 | Out-of-Sample: 2.12
-Max Drawdown         | In-Sample: 18.29 | Out-of-Sample: 10.53
+```python
+def calculate_stop_loss(self, candle, position_type):
+    """Calculate stop loss level based on candle properties."""
+    if position_type == 'buy':
+        return float(candle['low']) * 0.995  # 0.5% below low
+    else:
+        return float(candle['high']) * 1.005  # 0.5% above high
+```
 
-Trading Statistics:
-Total Trades         | In-Sample: 126 | Out-of-Sample: 67
-Win Rate             | In-Sample: 16.67 | Out-of-Sample: 20.90
-Average Profit       | In-Sample: -0.37 | Out-of-Sample: 12.37
-Profit Factor        | In-Sample: 0.99 | Out-of-Sample: 1.23
-Win Loss Ratio       | In-Sample: 4.97 | Out-of-Sample: 4.67
-Average Holding Time | In-Sample: 13.09 | Out-of-Sample: 19.59
+**Key points about the current approach:**
+- For long positions: Stop loss is set at 0.5% below the candle's low price
+- For short positions: Stop loss is set at 0.5% above the candle's high price
+- Once price hits this level, the position is automatically liquidated to limit losses
+- This provides a simple yet effective risk management method by establishing a maximum potential loss for each trade
+- The fixed percentage approach is applied regardless of market volatility
 
-Cost Analysis:
-Total Fees           | In-Sample: 302.68 | Out-of-Sample: 173.73
-Total Entry Fees     | In-Sample: 151.20 | Out-of-Sample: 80.40
-Total Exit Fees      | In-Sample: 151.56 | Out-of-Sample: 80.14
-Total Funding Fees   | In-Sample: -0.08 | Out-of-Sample: 13.19
-Fees To Profit Ratio | In-Sample: -642.79 | Out-of-Sample: 20.96
+## Future Improvements
 
-Detailed comparison saved to 'backtest_comparison.csv'
-(venv) woosangwon@Woos-MacBook-Air Binance_perp % python backtest.py
+### 1. Dynamic Stop Loss Enhancement
+While the current fixed-percentage stop loss works as a basic risk management tool, it could be enhanced with:
 
-Running In-Sample Backtest:
-==========================
-Starting backtest on BTCUSDT_5m_20250101_20250201_UTC_in_sample.csv...
-Loading data from BTCUSDT_5m_20250101_20250201_UTC_in_sample.csv
-Processing 8928 candles...
-Processed 0 candles...
-Processed 1000 candles...
-Processed 2000 candles...
-Processed 3000 candles...
-Processed 4000 candles...
-Processed 5000 candles...
-Processed 6000 candles...
-Processed 7000 candles...
-Processed 8000 candles...
+- **Volatility-adjusted stop loss**: Calculate stop loss distances based on recent market volatility (e.g., ATR - Average True Range)
+- **Adaptive positioning**: Adjust position size inversely to stop loss distance to maintain consistent risk per trade
+- **Trailing stop mechanisms**: Move stop loss levels to lock in profits as the trade moves favorably
+- **Time-based stop loss**: Exit trades that haven't performed as expected within a certain timeframe
 
-Backtest completed.
+Example implementation concept for volatility-adjusted stops:
+```python
+def calculate_dynamic_stop_loss(self, candle, position_type, atr_periods=14, atr_multiplier=2.0):
+    # Calculate ATR
+    atr_value = self.calculate_atr(atr_periods)
+    
+    if position_type == 'buy':
+        return float(candle['close']) - (atr_value * atr_multiplier)
+    else:
+        return float(candle['close']) + (atr_value * atr_multiplier)
+```
 
-Running Out-of-Sample Backtest:
-==============================
-Starting backtest on BTCUSDT_5m_20250201_20250223_UTC_out_of_sample.csv...
-Loading data from BTCUSDT_5m_20250201_20250223_UTC_out_of_sample.csv
-Processing 6336 candles...
-Processed 0 candles...
-Processed 1000 candles...
-Processed 2000 candles...
-Processed 3000 candles...
-Processed 4000 candles...
-Processed 5000 candles...
-Processed 6000 candles...
+### 2. Daily Candle-Based Market Direction Analysis
+A promising enhancement would be integrating daily timeframe analysis to determine market bias. By analyzing daily candles in real-time, the system could identify whether the market is bullish or bearish, which could significantly improve trading direction selection (long vs. short positions).
 
-Backtest completed.
+This approach would:
+- Align short-term trading strategies with the broader market trend
+- Filter out potential false signals that go against the dominant trend
+- Optimize entry points by considering higher timeframe support/resistance levels
+- Potentially reduce drawdowns by avoiding countertrend trades
 
-Backtest Results Comparison:
-===========================
+### 3. Additional Enhancement Ideas
 
-Performance Metrics:
-Total Return         | In-Sample: -2.90 | Out-of-Sample: 11.80
-Annualized Return    | In-Sample: -13.77 | Out-of-Sample: 738.33
-Annualized Volatility | In-Sample: 80.52 | Out-of-Sample: 67.41
-Sharpe Ratio         | In-Sample: -0.21 | Out-of-Sample: 3.14
-Max Drawdown         | In-Sample: 20.16 | Out-of-Sample: 10.00
+#### Advanced Market Analysis
+- Multi-timeframe analysis to strengthen signal validation
+- Volume profile analysis to identify key price levels
+- Market regime detection (trending vs. ranging)
+- Volatility filtering to adapt to changing market conditions
 
-Trading Statistics:
-Total Trades         | In-Sample: 122 | Out-of-Sample: 62
-Win Rate             | In-Sample: 16.39 | Out-of-Sample: 22.58
-Average Profit       | In-Sample: -1.16 | Out-of-Sample: 20.50
-Profit Factor        | In-Sample: 0.98 | Out-of-Sample: 1.39
-Win Loss Ratio       | In-Sample: 5.00 | Out-of-Sample: 4.77
-Average Holding Time | In-Sample: 13.51 | Out-of-Sample: 21.27
+#### Performance Optimization
+- Dynamic position sizing based on volatility and conviction
+- Adaptive parameter optimization based on market conditions
+- Machine learning models for pattern recognition and prediction
+- Integration with market sentiment analysis from external sources
 
-Cost Analysis:
-Total Fees           | In-Sample: 292.03 | Out-of-Sample: 161.75
-Total Entry Fees     | In-Sample: 146.40 | Out-of-Sample: 74.40
-Total Exit Fees      | In-Sample: 146.71 | Out-of-Sample: 74.16
-Total Funding Fees   | In-Sample: -1.08 | Out-of-Sample: 13.19
-Fees To Profit Ratio | In-Sample: -206.97 | Out-of-Sample: 12.73
+## Important Notes
 
-Detailed comparison saved to 'backtest_comparison.csv'
+- All visualization functions use `matplotlib`. This library must be installed.
+- You need write permissions in the directory to save visualization results.
+- Be mindful of memory usage when visualizing large amounts of data.
