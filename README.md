@@ -1,7 +1,50 @@
 ### Following rigorous methodologies to avoid Look Ahead bias & Data Snooping bias 
 (based on principles from "Algorithmic Trading: Winning Strategies and Their Rationale" by Dr. Ernest P. Chan)
 
-### Funding fee, market taker, maker, slippage were not considered in this project
+## 🚨 Comprehensive Risk Management (Detailed)
+
+### 📌 Position sizing logic
+Positions are strictly sized based on two constraints (using the smaller value):
+- **Maximum capital usage per trade**: Limited to **30% of initial capital**.
+
+Final position size = **min(Risk-based size, Capital limit size)**
+
+### 📌 Stop-loss & take-profit calculation
+- **Stop-loss**: 
+- Long: 0.5% below recent candle low  
+- Short: 0.5% above recent candle high
+- **Take-profit**: 
+- Fixed Risk-Reward ratio of **1:5**.
+
+### 📌 Leverage & concurrent positions
+- Fixed leverage at **3×**
+- Maximum **3 concurrent positions** at any time.
+
+### 📌 Realistic trading costs & conditions
+- **Slippage** simulated at an average of **0.05% per trade**
+- **Exchange fees**: Maker (**0.02%**), Taker (**0.04%**)
+- **Funding fees** applied every **8 hours** at **0.00333%** per interval (daily rate 0.01%)
+
+---
+
+## 📊 Realistic Backtesting & Performance Analysis
+- Accurate historical data fetched from real exchanges (Binance via CCXT)
+- Detailed metrics including Sharpe Ratio, Profit Factor, Max Drawdown, and more
+- Visualization of equity curves, cumulative returns, fees analysis, and pattern-based performance
+
+---
+
+- **Risk per trade**: Limited to **1% of current account balance** per trade.
+
+## ⚙️ Simplified Strategy Description
+
+The strategy systematically identifies trading opportunities based on:
+
+- Automated identification of critical support and resistance price levels.
+- Candlestick pattern analysis for precise entry signals.
+- Trend detection using customized Bollinger Bands parameters.
+
+(**Detailed proprietary strategy logic intentionally omitted.**)
 
 2025 1/1 ~ 2025 1/31 (in-sample data period)
 
