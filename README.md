@@ -1,6 +1,8 @@
 ### Following rigorous methodologies to avoid Look Ahead bias & Data Snooping bias 
 (based on principles from "Algorithmic Trading: Winning Strategies and Their Rationale" by Dr. Ernest P. Chan)
 
+###Funding fee, market taker, maker, slippage were not considered in this project
+
 ![backtest_comparison](https://github.com/user-attachments/assets/0d0cd9eb-de11-4c1b-9c30-dd6601610e7f)
 ![in_sample_trade_results](https://github.com/user-attachments/assets/1065efce-5927-47ba-9cb1-5447086cb46e)
 ![out_of_sample_trade_results](https://github.com/user-attachments/assets/e387a38c-c565-4d74-ac00-6066d09dc5ff)
@@ -72,6 +74,24 @@ def calculate_stop_loss(self, candle, position_type):
 - Once price hits this level, the position is automatically liquidated to limit losses
 - This provides a simple yet effective risk management method by establishing a maximum potential loss for each trade
 - The fixed percentage approach is applied regardless of market volatility
+
+### Insights from Results Analysis
+
+One key insight from analyzing the backtest results is that trading strategies may perform differently across various market conditions. The notable performance difference between in-sample and out-of-sample periods suggests that market regimes significantly impact strategy effectiveness.
+
+Multiple Strategy Ensemble Approach
+To consistently generate higher alpha across changing market conditions, we could implement a multiple strategy ensemble approach:
+
+Market Pattern Recognition: Develop a system to identify different chart patterns and market regimes (trending, ranging, volatile)
+Possible implementation using Convolutional Neural Networks (CNN) to classify chart patterns automatically
+NLP may analyze the news data 
+Reinforcement Learning may be in use to keep fitting the model in desirable way
+Strategy Mapping: Create a 1:1 mapping between identified market conditions and optimal strategies
+Each market pattern would trigger the most suitable trading algorithm from a library of strategies
+Dynamic Switching: Automatically shift between strategies as market conditions evolve
+This creates adaptability without requiring constant manual intervention
+Performance Tracking: Continuously monitor the effectiveness of each strategy in real-time
+Periodically update the mapping based on recent performance data
 
 ## Future Improvements
 
