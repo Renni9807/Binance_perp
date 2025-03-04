@@ -1,7 +1,7 @@
 ### Following rigorous methodologies to avoid Look Ahead bias & Data Snooping bias 
 (based on principles from "Algorithmic Trading: Winning Strategies and Their Rationale" by Dr. Ernest P. Chan)
 
-###Funding fee, market taker, maker, slippage were not considered in this project
+### Funding fee, market taker, maker, slippage were not considered in this project
 
 2025 1/1 ~ 2025 1/31 (in-sample data period)
 
