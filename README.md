@@ -1,10 +1,17 @@
-### Following rigorous methodologies to avoid Look Ahead bias & Data Snooping bias 
+![BTCUSDT_5m_20250101_20250131_UTC_in_sample_chart](https://github.com/user-attachments/assets/15de9183-b3c7-4c59-95be-48a79a911bdc)### Following rigorous methodologies to avoid Look Ahead bias & Data Snooping bias 
 (based on principles from "Algorithmic Trading: Winning Strategies and Their Rationale" by Dr. Ernest P. Chan)
 
 ###Funding fee, market taker, maker, slippage were not considered in this project
 
+2025 1/1 ~ 2025 1/31 (in-sample data period)
+
 ![backtest_comparison](https://github.com/user-attachments/assets/0d0cd9eb-de11-4c1b-9c30-dd6601610e7f)
+
+![Uploading BTCUSDT_5m_20250101_20250131_UTC_in_sample_chart.png…]()
 ![in_sample_trade_results](https://github.com/user-attachments/assets/1065efce-5927-47ba-9cb1-5447086cb46e)
+
+2025 2/1 ~ 2025 2/22 (out-sample data period)
+![BTCUSDT_5m_20250201_20250222_UTC_out_of_sample_chart](https://github.com/user-attachments/assets/f75906ab-afa9-440c-b1c5-806303ae5305)
 ![out_of_sample_trade_results](https://github.com/user-attachments/assets/e387a38c-c565-4d74-ac00-6066d09dc5ff)
 
 
